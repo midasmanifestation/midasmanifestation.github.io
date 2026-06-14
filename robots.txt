@@ -4,4 +4,5 @@ Disallow: /css/
 Disallow: /js/
 Disallow: /fonts/
 
-Sitemap: https://www.midasmanifestation.com/sitemap.xml
+Sitemap: https://midasmanifestation.github.io/sitemap.xml
+
