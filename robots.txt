@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /css/
+Disallow: /js/
+Disallow: /fonts/
+
+Sitemap: https://www.midasmanifestation.com/sitemap.xml
