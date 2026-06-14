@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Midas Manifestation</title>
+  <meta name="description" content="Get in touch with the Midas Manifestation support team. We're here to help with any questions about the program.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://midasmanifestation.github.io/contact.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=optional" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+  <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
+  <style>
+    .contact-page { padding-top: calc(72px + var(--space-16)); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-top: var(--space-12); }
+    .contact-info { display: flex; flex-direction: column; gap: var(--space-8); }
+    .contact-item { display: flex; gap: var(--space-4); align-items: flex-start; }
+    .contact-item__icon { width: 44px; height: 44px; min-width: 44px; background: rgba(212, 160, 23, 0.1); border: 1px solid rgba(212, 160, 23, 0.2); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .contact-item__title { font-weight: 600; color: var(--color-white); margin-bottom: var(--space-1); font-family: var(--font-body); }
+    .contact-item__text { font-size: var(--text-sm); color: var(--color-text-secondary); }
+    .contact-form { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-10); }
+    .form-group { margin-bottom: var(--space-6); }
+    .form-group label { display: block; font-size: var(--text-sm); font-weight: 600; color: var(--color-white); margin-bottom: var(--space-2); font-family: var(--font-body); }
+    .form-group input, .form-group textarea { width: 100%; padding: var(--space-4); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text-primary); font-family: var(--font-body); font-size: var(--text-base); transition: border-color var(--duration-fast); }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--color-accent); }
+    .form-group textarea { min-height: 150px; resize: vertical; }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__brand" aria-label="Midas Manifestation Home">
+        <span class="nav__brand-icon" aria-hidden="true">M</span>
+        Midas Manifestation
+      </a>
+    </div>
+  </nav>
+
+  <main class="contact-page">
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section__label" style="justify-content: center;">Contact</div>
+        <h1 class="section__title" style="margin-left: auto; margin-right: auto;">Get in Touch</h1>
+        <p class="section__subtitle" style="margin-left: auto; margin-right: auto;">Have questions about Midas Manifestation? We're here to help.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-item__icon" aria-hidden="true">&#128231;</div>
+            <div>
+              <div class="contact-item__title">Email Support</div>
+              <div class="contact-item__text"><a href="mailto:support@midas-manifestation.github.io">support@midas-manifestation.github.io</a></div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item__icon" aria-hidden="true">&#128337;</div>
+            <div>
+              <div class="contact-item__title">Response Time</div>
+              <div class="contact-item__text">We typically respond within 24-48 hours during business days.</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item__icon" aria-hidden="true">&#128737;</div>
+            <div>
+              <div class="contact-item__title">Refund Requests</div>
+              <div class="contact-item__text">For refund requests, please visit the DigiStore24 support portal. Refunds are processed within 48 hours.</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item__icon" aria-hidden="true">&#128214;</div>
+            <div>
+              <div class="contact-item__title">Product Support</div>
+              <div class="contact-item__text">Need help accessing or using your Midas Manifestation program? Check our <a href="index.html#faq">FAQ section</a> first.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h2 style="font-size: var(--text-xl); margin-bottom: var(--space-6);">Send Us a Message</h2>
+          <form action="https://formspree.io/f/your-form-id" method="POST">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary" style="width: 100%;">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 Midas Manifestation. All Rights Reserved.</p>
+        <div class="footer__legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="disclaimer.html">Disclaimer</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
