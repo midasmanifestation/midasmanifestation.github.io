@@ -1,0 +1,236 @@
+(function () {
+  'use strict';
+
+  document.addEventListener('DOMContentLoaded', init);
+
+  function init() {
+    initNavigation();
+    initHeroEntrance();
+    initHeroParticles();
+    initRevealAnimations();
+    initFAQ();
+    initStickyCTA();
+    initScrollHandlers();
+    initLazyYouTube();
+    initSmoothScroll();
+    initCounterAnimations();
+  }
+
+  function initNavigation() {
+    const nav = document.querySelector('.nav');
+    const toggle = document.querySelector('.nav__mobile-toggle');
+    const links = document.querySelector('.nav__links');
+    if (!nav) return;
+
+    if (toggle && links) {
+      toggle.addEventListener('click', function () {
+        var isOpen = links.classList.toggle('nav__links--open');
+        toggle.setAttribute('aria-expanded', isOpen);
+        var spans = toggle.querySelectorAll('span');
+        if (spans.length >= 3) {
+          spans[0].style.transform = isOpen ? 'rotate(45deg) translateY(7px)' : '';
+          spans[1].style.opacity = isOpen ? '0' : '';
+          spans[2].style.transform = isOpen ? 'rotate(-45deg) translateY(-7px)' : '';
+        }
+      });
+
+      links.querySelectorAll('.nav__link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          links.classList.remove('nav__links--open');
+          toggle.setAttribute('aria-expanded', 'false');
+          var spans = toggle.querySelectorAll('span');
+          if (spans.length >= 3) {
+            spans[0].style.transform = '';
+            spans[1].style.opacity = '';
+            spans[2].style.transform = '';
+          }
+        });
+      });
+    }
+  }
+
+  function initHeroEntrance() {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        hero.classList.add('hero--visible');
+      });
+    });
+  }
+
+  function initHeroParticles() {
+    var container = document.querySelector('.hero__particles');
+    if (!container) return;
+    for (var i = 0; i < 15; i++) {
+      var p = document.createElement('div');
+      p.className = 'hero__particle';
+      var size = Math.random() * 3 + 1;
+      p.style.cssText =
+        'left:' + (Math.random() * 100) + '%;' +
+        'top:' + (Math.random() * 100) + '%;' +
+        'width:' + size + 'px;height:' + size + 'px;' +
+        'opacity:' + (Math.random() * 0.3 + 0.1) + ';' +
+        'will-change:transform,opacity;' +
+        'animation:particleFloat ' + (4 + Math.random() * 6) + 's ' + (Math.random() * 5) + 's infinite linear';
+      container.appendChild(p);
+    }
+  }
+
+  function initRevealAnimations() {
+    var reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal--active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(function (el) { observer.observe(el); });
+
+    document.querySelectorAll('[data-stagger]').forEach(function (parent) {
+      var children = Array.from(parent.children);
+      var staggerObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            children.forEach(function (child, i) {
+              setTimeout(function () { child.classList.add('reveal--active'); }, i * 100);
+            });
+            staggerObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+      staggerObserver.observe(parent);
+    });
+  }
+
+  function initFAQ() {
+    document.querySelectorAll('.faq__item').forEach(function (item) {
+      var question = item.querySelector('.faq__question');
+      var answer = item.querySelector('.faq__answer');
+      var inner = item.querySelector('.faq__answer-inner');
+      if (!question || !answer || !inner) return;
+
+      question.addEventListener('click', function () {
+        var isActive = item.classList.contains('faq__item--active');
+        document.querySelectorAll('.faq__item--active').forEach(function (other) {
+          if (other !== item) {
+            other.classList.remove('faq__item--active');
+            other.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+            other.querySelector('.faq__answer').style.maxHeight = '0';
+          }
+        });
+        if (isActive) {
+          item.classList.remove('faq__item--active');
+          question.setAttribute('aria-expanded', 'false');
+          answer.style.maxHeight = '0';
+        } else {
+          item.classList.add('faq__item--active');
+          question.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = inner.offsetHeight + 20 + 'px';
+        }
+      });
+    });
+  }
+
+  function initStickyCTA() {
+    var sticky = document.querySelector('.sticky-cta');
+    var hero = document.querySelector('.hero');
+    if (!sticky || !hero) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      sticky.classList.toggle('sticky-cta--visible', !entries[0].isIntersecting);
+    }, { threshold: 0 });
+    observer.observe(hero);
+  }
+
+  function initScrollHandlers() {
+    var nav = document.querySelector('.nav');
+    var btn = document.getElementById('back-to-top');
+    if (!nav && !btn) return;
+
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          if (nav) nav.classList.toggle('nav--scrolled', window.scrollY > 50);
+          if (btn) {
+            btn.classList.toggle('back-to-top--visible', window.scrollY > 600);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    if (btn) {
+      btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }
+
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          var top = target.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  function initLazyYouTube() {
+    document.querySelectorAll('[data-yt-id]').forEach(function (container) {
+      function loadVideo() {
+        if (container.querySelector('iframe')) return;
+        var id = container.getAttribute('data-yt-id');
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+        iframe.title = container.getAttribute('aria-label') || 'Video';
+        iframe.width = '560';
+        iframe.height = '315';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%';
+        container.innerHTML = '';
+        container.appendChild(iframe);
+      }
+      container.addEventListener('click', loadVideo);
+      container.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadVideo(); }
+      });
+    });
+  }
+
+  function initCounterAnimations() {
+    document.querySelectorAll('[data-count]').forEach(function (el) {
+      var target = parseInt(el.dataset.count, 10);
+      var suffix = el.dataset.suffix || '';
+
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          var duration = 1000;
+          var startTime = performance.now();
+          function update() {
+            var elapsed = performance.now() - startTime;
+            var progress = Math.min(elapsed / duration, 1);
+            el.textContent = Math.round(target * progress) + suffix;
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+          observer.unobserve(el);
+        }
+      }, { threshold: 0.5 });
+      observer.observe(el);
+    });
+  }
+
+})();
